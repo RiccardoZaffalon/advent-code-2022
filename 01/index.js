@@ -1,28 +1,18 @@
-const fs = require('fs');
-const path = require('path')
+import { getInputString, sum } from '../utils.js';
 
-fs.readFile(path.resolve(__dirname, './input.txt'), (err, data) => {
-    if (err) throw err;
+const input = getInputString('./01/input.txt');
 
-    const string = data.toString();
+const groups = input.split('\n\n');
 
-    const groups = string.split('\n\n');
+const totals = groups.map((group) => {
+    let items = group.split('\n');
 
-    const totals = groups.map((group) => {
-        let items = group.split('\n');
-
-        return items.reduce((prev, curr) => {
-            return parseInt(prev) + parseInt(curr);
-        }, 0);
-    });
-
-    console.log(totals);
-
-    totals.sort((a, b) => {
-        return b - a;
-    });
-
-    console.log('Biggest: ', totals[0]);
-    console.log('Top 3 total: ', totals[0] + totals[1] + totals[2]);
+    return sum(items);
 });
 
+totals.sort((a, b) => {
+    return b - a;
+});
+
+console.log('Biggest: ', totals[0]);
+console.log('Top 3 total: ', totals[0] + totals[1] + totals[2]);
