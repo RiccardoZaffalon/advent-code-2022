@@ -12,5 +12,19 @@ export function getInputString(relPath) {
 export function sum(array) {
     return array.reduce((prev, curr) => {
         return parseInt(prev) + parseInt(curr);
-    }, 0)
+    }, 0);
+}
+
+export class Alphabet {
+    static get lower() {
+        return 'abcdefghijklmnopqrstuvwxyz'.split('');
+    }
+
+    static get upper() {
+        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    }
+
+    static get all() {
+        return 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    }
 }

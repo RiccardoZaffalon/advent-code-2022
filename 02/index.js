@@ -1,4 +1,3 @@
-
 import { getInputString, sum } from '../utils.js';
 
 const PLAYER_MAP = new Map();
@@ -13,47 +12,56 @@ function play(opponent, player) {
     let result = 0;
     switch (opponent) {
         case 'A': // Rock
-            if (player === 'X') { // Rock
+            if (player === 'X') {
+                // Rock
                 result += 3;
             }
 
-            if (player === 'Y') { // Paper
+            if (player === 'Y') {
+                // Paper
                 result += 6;
             }
 
-            if (player === 'Z') { // Scissors
+            if (player === 'Z') {
+                // Scissors
                 result += 0;
             }
             break;
-    
+
         case 'B': // Paper
-            if (player === 'X') { // Rock
+            if (player === 'X') {
+                // Rock
                 result += 0;
             }
 
-            if (player === 'Y') { // Paper
+            if (player === 'Y') {
+                // Paper
                 result += 3;
             }
 
-            if (player === 'Z') { // Scissors
+            if (player === 'Z') {
+                // Scissors
                 result += 6;
             }
             break;
-    
+
         case 'C': // Scissors
-            if (player === 'X') { // Rock
+            if (player === 'X') {
+                // Rock
                 result += 6;
             }
 
-            if (player === 'Y') { // Paper
+            if (player === 'Y') {
+                // Paper
                 result += 0;
             }
 
-            if (player === 'Z') { // Scissors
+            if (player === 'Z') {
+                // Scissors
                 result += 3;
             }
             break;
-    
+
         default:
             break;
     }
@@ -64,47 +72,56 @@ function play(opponent, player) {
 function choose(opponent, result) {
     switch (opponent) {
         case 'A': // Rock
-            if (result === 'X') { // Lose
+            if (result === 'X') {
+                // Lose
                 return PLAYER_MAP.get('scissors');
             }
 
-            if (result === 'Y') { // Draw
+            if (result === 'Y') {
+                // Draw
                 return PLAYER_MAP.get('rock');
             }
 
-            if (result === 'Z') { // Win
+            if (result === 'Z') {
+                // Win
                 return PLAYER_MAP.get('paper');
             }
             break;
-    
+
         case 'B': // Paper
-            if (result === 'X') { // Lose
+            if (result === 'X') {
+                // Lose
                 return PLAYER_MAP.get('rock');
             }
 
-            if (result === 'Y') { // Draw
+            if (result === 'Y') {
+                // Draw
                 return PLAYER_MAP.get('paper');
             }
 
-            if (result === 'Z') { // Win
+            if (result === 'Z') {
+                // Win
                 return PLAYER_MAP.get('scissors');
             }
             break;
-    
+
         case 'C': // Scissors
-            if (result === 'X') { // Lose
+            if (result === 'X') {
+                // Lose
                 return PLAYER_MAP.get('paper');
             }
 
-            if (result === 'Y') { // Draw
+            if (result === 'Y') {
+                // Draw
                 return PLAYER_MAP.get('scissors');
             }
 
-            if (result === 'Z') { // Win
+            if (result === 'Z') {
+                // Win
                 return PLAYER_MAP.get('rock');
             }
             break;
-    
+
         default:
             break;
     }
@@ -112,7 +129,7 @@ function choose(opponent, result) {
 
 const input = getInputString('./02/input.txt');
 
-const matches = input.split('\n')
+const matches = input.split('\n');
 
 const resultsOne = matches.map((match) => {
     const [opponent, player] = match.split(' ');
