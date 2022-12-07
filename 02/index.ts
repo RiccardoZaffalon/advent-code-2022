@@ -1,4 +1,4 @@
-import { getInputString, sum } from '../utils.js';
+import { sum } from '../utils.ts';
 
 const PLAYER_MAP = new Map();
 
@@ -8,7 +8,7 @@ PLAYER_MAP.set('scissors', 'Z');
 
 const PLAYER_LIST = ['X', 'Y', 'Z'];
 
-function play(opponent, player) {
+function play(opponent: string, player: string) {
     let result = 0;
     switch (opponent) {
         case 'A': // Rock
@@ -69,7 +69,7 @@ function play(opponent, player) {
     return result + PLAYER_LIST.indexOf(player) + 1;
 }
 
-function choose(opponent, result) {
+function choose(opponent: string, result: string) {
     switch (opponent) {
         case 'A': // Rock
             if (result === 'X') {
@@ -127,7 +127,7 @@ function choose(opponent, result) {
     }
 }
 
-const input = getInputString('./02/input.txt');
+const input = Deno.readTextFileSync('./02/input.txt');
 
 const matches = input.split('\n');
 

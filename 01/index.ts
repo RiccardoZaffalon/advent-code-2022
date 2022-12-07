@@ -1,13 +1,13 @@
-import { getInputString, sum } from '../utils.js';
+import { sumStrings } from '../utils.ts';
 
-const input = getInputString('./01/input.txt');
+const input = Deno.readTextFileSync('./01/input.txt');
 
 const groups = input.split('\n\n');
 
 const totals = groups.map((group) => {
-    let items = group.split('\n');
+    const items = group.split('\n');
 
-    return sum(items);
+    return sumStrings(items);
 });
 
 totals.sort((a, b) => {

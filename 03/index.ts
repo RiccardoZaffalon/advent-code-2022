@@ -1,4 +1,4 @@
-import { getInputString, Alphabet, sum } from '../utils.js';
+import { Alphabet, sum } from '../utils.ts';
 
 const PRIORITIES = Alphabet.all;
 
@@ -9,7 +9,7 @@ const PRIORITIES = Alphabet.all;
 // ttgJtRGJQctTZtZT
 // CrZsJsPPZsGzwwsLwLmpwMDw`;
 
-const input = getInputString('./03/input.txt');
+const input = Deno.readTextFileSync('./03/input.txt');
 
 const sacks = input.split('\n');
 
@@ -23,7 +23,7 @@ const types = sacks.map((sack) => {
     return a.find((letter) => b.includes(letter));
 });
 
-let groups = [];
+const groups: string[][] = [];
 
 sacks.forEach((sack, index) => {
     const i = Math.floor(index / 3);
@@ -40,9 +40,10 @@ const badges = groups.map((groupSacks) => {
     return a.find((letter) => b.includes(letter) && c.includes(letter));
 });
 
-function solve(inputs) {
+function solve(inputs: (string | undefined)[]) {
     return sum(
         inputs.map((letter) => {
+            if (typeof letter === 'undefined') return -1;
             return PRIORITIES.indexOf(letter) + 1;
         })
     );
