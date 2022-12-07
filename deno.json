@@ -1,7 +1,0 @@
-{
-    "tasks": {
-        "day-1": "deno run --allow-read 01/index.ts",
-        "day-2": "deno run --allow-read 02/index.ts",
-        "day-3": "deno run --allow-read 03/index.ts"
-    }
-}

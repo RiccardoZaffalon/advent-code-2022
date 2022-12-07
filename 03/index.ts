@@ -2,13 +2,7 @@ import { Alphabet, sum } from '../utils.ts';
 
 const PRIORITIES = Alphabet.all;
 
-// const input = `vJrwpWtwJgWrhcsFMMfFFhFp
-// jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
-// PmmdzqPrVvPwwTWBwg
-// wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
-// ttgJtRGJQctTZtZT
-// CrZsJsPPZsGzwwsLwLmpwMDw`;
-
+// const input = Deno.readTextFileSync('./03/sample.txt');
 const input = Deno.readTextFileSync('./03/input.txt');
 
 const sacks = input.split('\n');
