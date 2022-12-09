@@ -30,12 +30,20 @@ procedures.forEach((procedure) => {
         to: parseInt(to) - 1,
     };
 
-    for (let index = 0; index < steps.move; index++) {
-        const toMove = layers[steps.from].pop();
+    // Part 1
+    // for (let index = 0; index < steps.move; index++) {
+    //     const toMove = layers[steps.from].pop();
 
-        if (toMove) {
-            layers[steps.to].push(toMove);
-        }
+    //     if (toMove) {
+    //         layers[steps.to].push(toMove);
+    //     }
+    // }
+
+    // Part 2
+    const toMove = layers[steps.from].splice(-steps.move);
+
+    if (toMove) {
+        layers[steps.to].push(...toMove);
     }
 });
 
@@ -43,4 +51,4 @@ const resultA = layers.map((layer) => {
     return layer.pop();
 });
 
-console.log('Part 1 result is: ', resultA.join(''));
+console.log('Result is: ', resultA.join(''));
