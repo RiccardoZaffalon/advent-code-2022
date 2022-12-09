@@ -13,6 +13,8 @@ const RULES = {
 };
 
 const THRESHOLD = 100000;
+const DISK_SPACE = 70000000;
+const UPDATE_SIZE = 30000000;
 
 function getAction(line: string) {
     if (RULES.command.test(line)) {
@@ -95,11 +97,23 @@ const sizes = Array.from(weights).map(([_, size]) => {
     return size;
 });
 
-console.log(
-    'Solution to part 1 is: ',
-    sum(
-        sizes.filter((size) => {
-            return size <= THRESHOLD ? size : 0;
-        })
-    )
+const solution1 = sum(
+    sizes.map((size) => {
+        return size <= THRESHOLD ? size : 0;
+    })
 );
+
+console.log('Solution to part 1 is: ', solution1);
+
+const [total] = sizes;
+
+const FREE_SPACE = DISK_SPACE - total;
+const NEEDED_SPACE = UPDATE_SIZE - FREE_SPACE;
+
+const bigEnough = sizes
+    .filter((size) => {
+        return size >= NEEDED_SPACE;
+    })
+    .sort();
+
+console.log('Solution to part 2 is: ', bigEnough.shift());
