@@ -19,7 +19,7 @@ for (let i = 0; i < rows.length; i++) {
     }
 }
 
-function canBeSeenFrom(side: string, row: number, column: number, value: number) {
+function canBeSeenFrom(side: 'top' | 'right' | 'bottom' | 'left', row: number, column: number, value: number) {
     let trees: string[] = [];
 
     switch (side) {
@@ -48,14 +48,59 @@ function canBeSeenFrom(side: string, row: number, column: number, value: number)
     return trees.every((tree) => parseInt(tree) < value);
 }
 
+function getVisibleTreesTo(dir: 'up' | 'right' | 'down' | 'left', row: number, column: number, value: number): number {
+    let trees: string[] = [];
+    let visible = 0;
+
+    switch (dir) {
+        case 'left':
+            trees = rows[row]
+                .split('')
+                .filter((_el: string, i: number) => i < column)
+                .reverse();
+            break;
+
+        case 'right':
+            trees = rows[row].split('').filter((_el: string, i: number) => i > column);
+            break;
+
+        case 'up':
+            trees = columns[column]
+                .split('')
+                .filter((_el: string, i: number) => i < row)
+                .reverse();
+            break;
+
+        case 'down':
+            trees = columns[column].split('').filter((_el: string, i: number) => i > row);
+            break;
+
+        default:
+            break;
+    }
+
+    for (let i = 0; i < trees.length; i++) {
+        const tree = parseInt(trees[i]);
+
+        visible++;
+
+        if (tree >= value) {
+            break;
+        }
+    }
+
+    return visible;
+}
+
 let count = 0;
+let highestScenicScore = 0;
 
 for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
-    const columns = row.split('');
+    const trees = row.split('');
 
-    for (let j = 0; j < columns.length; j++) {
-        const tree = parseInt(columns[j]);
+    for (let j = 0; j < trees.length; j++) {
+        const tree = parseInt(trees[j]);
 
         const isVisible =
             canBeSeenFrom('left', i, j, tree) ||
@@ -63,10 +108,21 @@ for (let i = 0; i < rows.length; i++) {
             canBeSeenFrom('top', i, j, tree) ||
             canBeSeenFrom('bottom', i, j, tree);
 
+        const scenicScore =
+            getVisibleTreesTo('left', i, j, tree) *
+            getVisibleTreesTo('right', i, j, tree) *
+            getVisibleTreesTo('up', i, j, tree) *
+            getVisibleTreesTo('down', i, j, tree);
+
         if (isVisible) {
             count++;
+        }
+
+        if (scenicScore > highestScenicScore) {
+            highestScenicScore = scenicScore;
         }
     }
 }
 
 console.log('Solution to part 1 is: ', count);
+console.log('Solution to part 2 is: ', highestScenicScore);
