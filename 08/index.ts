@@ -19,42 +19,33 @@ for (let i = 0; i < rows.length; i++) {
     }
 }
 
-type Side = 'top' | 'right' | 'bottom' | 'left';
-function canBeSeenFrom(side: Side, row: number, column: number, value: number) {
+function canBeSeenFrom(side: string, row: number, column: number, value: number) {
+    let trees: string[] = [];
+
     switch (side) {
-        case 'left': {
-            const trees = rows[row].split('').filter((_el: string, i: number) => i < column);
-            if (!trees.length) return true;
+        case 'left':
+            trees = rows[row].split('').filter((_el: string, i: number) => i < column);
+            break;
 
-            return trees.every((tree) => parseInt(tree) < value);
-        }
+        case 'right':
+            trees = rows[row].split('').filter((_el: string, i: number) => i > column);
+            break;
 
-        case 'right': {
-            const trees = rows[row].split('').filter((_el: string, i: number) => i > column);
-            if (!trees.length) return true;
+        case 'top':
+            trees = columns[column].split('').filter((_el: string, i: number) => i < row);
+            break;
 
-            return trees.every((tree) => parseInt(tree) < value);
-        }
-
-        case 'top': {
-            const trees = columns[column].split('').filter((_el: string, i: number) => i < row);
-
-            if (!trees.length) return true;
-
-            return trees.every((tree) => parseInt(tree) < value);
-        }
-
-        case 'bottom': {
-            const trees = columns[column].split('').filter((_el: string, i: number) => i > row);
-
-            if (!trees.length) return true;
-
-            return trees.every((tree) => parseInt(tree) < value);
-        }
+        case 'bottom':
+            trees = columns[column].split('').filter((_el: string, i: number) => i > row);
+            break;
 
         default:
-            return false;
+            break;
     }
+
+    if (!trees.length) return true;
+
+    return trees.every((tree) => parseInt(tree) < value);
 }
 
 let count = 0;
